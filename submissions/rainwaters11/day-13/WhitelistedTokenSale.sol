@@ -65,7 +65,7 @@ contract WhitelistedTokenSale is MistyCoin {
 
     function transfer(address _to, uint256 _value) public override returns (bool) {
         require(
-            finalized || msg.sender == owner || msg.sender == address(this),
+            finalized || block.timestamp > saleEndTime || msg.sender == owner || msg.sender == address(this),
             "Tokens are locked until sale finalization"
         );
         return super.transfer(_to, _value);
@@ -73,7 +73,7 @@ contract WhitelistedTokenSale is MistyCoin {
 
     function transferFrom(address _from, address _to, uint256 _value) public override returns (bool) {
         require(
-            finalized || _from == owner || _from == address(this),
+            finalized || block.timestamp > saleEndTime || _from == owner || _from == address(this),
             "Tokens are locked until sale finalization"
         );
         return super.transferFrom(_from, _to, _value);
