@@ -34,8 +34,9 @@ contract TimeLockedDepositBox is BaseDepositBox {
     }
 
     constructor(uint256 lockDurationSeconds) {
-        unlockTime = block.timestamp + lockDurationSeconds;
-    }
+            require(lockDurationSeconds > 0, "Lock duration must be > 0");
+            unlockTime = block.timestamp + lockDurationSeconds;
+        }
 
     function getSecret() public view override timeUnlocked returns (string memory) {
         return super.getSecret();
