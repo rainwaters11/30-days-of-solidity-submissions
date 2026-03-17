@@ -51,14 +51,4 @@ contract TimeLockedDepositBox is BaseDepositBox {
 
 // Duplicate PremiumDepositBox definition removed.
 
-contract TimeLockedDepositBox is BaseDepositBox {
-    uint256 public unlockTime;
-
-    modifier timeUnlocked() {
-        require(block.timestamp >= unlockTime, "Box is still time-locked");
-        _;
-    }
-
-    constructor(uint256 lockDurationSeconds) {
-        unlockTime = block.timestamp + lockDurationSeconds;
-    }
+// Duplicate TimeLockedDepositBox definition removed.
