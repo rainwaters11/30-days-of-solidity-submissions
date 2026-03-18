@@ -64,5 +64,7 @@ contract SubscriptionStorage is SubscriptionStorageLayout {
     }
 
     /// @notice Accept plain ETH transfers (e.g. subscription payments forwarded without data).
-    receive() external payable {}
+    receive() external payable {
+            revert("Proxy: use subscription function");
+        }
 }
