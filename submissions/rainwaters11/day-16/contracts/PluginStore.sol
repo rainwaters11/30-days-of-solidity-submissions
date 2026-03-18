@@ -75,6 +75,7 @@ contract PluginStore {
     ) external view returns (bytes memory result) {
         address plugin = plugins[key];
         if (plugin == address(0)) revert PluginNotRegistered(key);
+        require(plugin.code.length > 0, "Plugin has no code");
 
         bytes memory data = abi.encodeWithSignature(functionSignature, user);
         (bool success, bytes memory returnData) = plugin.staticcall(data);
