@@ -33,10 +33,11 @@ contract SubscriptionStorage is SubscriptionStorageLayout {
     /// @notice Point the proxy at a new logic contract.
     /// @param _newLogic Address of the upgraded implementation (e.g. V2).
     function upgradeTo(address _newLogic) external onlyOwner {
-        require(_newLogic != address(0), "Proxy: zero address");
-        emit Upgraded(logicContract, _newLogic);
-        logicContract = _newLogic;
-    }
+            require(_newLogic != address(0), "Proxy: zero address");
+            require(_newLogic.code.length > 0, "Proxy: logic must be contract");
+            emit Upgraded(logicContract, _newLogic);
+            logicContract = _newLogic;
+        }
 
     // ─── Fallback — delegatecall forwarding ──────────────────────────────────
     /// @notice Forwards all unrecognised calls to `logicContract` via delegatecall.
