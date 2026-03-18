@@ -28,15 +28,18 @@ contract PremiumDepositBox is BaseDepositBox {
 contract TimeLockedDepositBox is BaseDepositBox {
     uint256 public unlockTime;
 
-    modifier timeUnlocked() {
-        require(block.timestamp >= unlockTime, "Box is still time-locked");
-        _;
-    }
+    uint256 public lockDurationSeconds;
 
-    constructor(uint256 lockDurationSeconds) {
-            require(lockDurationSeconds > 0, "Lock duration must be > 0");
-            unlockTime = block.timestamp + lockDurationSeconds;
+        modifier timeUnlocked() {
+            require(block.timestamp >= getDepositTime() + lockDurationSeconds, "Box is still time-locked");
+            _;
         }
+
+        constructor(uint256 _lockDurationSeconds) {
+                require(_lockDurationSeconds > 0, "Lock duration must be > 0");
+                lockDurationSeconds = _lockDurationSeconds;
+                unlockTime = block.timestamp + _lockDurationSeconds;
+            }
 
     function getSecret() public view override timeUnlocked returns (string memory) {
         return super.getSecret();
