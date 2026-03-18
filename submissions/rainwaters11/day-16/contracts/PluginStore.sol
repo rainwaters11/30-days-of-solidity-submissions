@@ -29,6 +29,7 @@ contract PluginStore {
     }
 
     function registerPlugin(string calldata key, address plugin) external {
+        require(plugins[key] == address(0), "Plugin key already registered");
         plugins[key] = plugin;
         emit PluginRegistered(key, plugin);
     }
