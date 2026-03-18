@@ -54,7 +54,8 @@ contract SubscriptionLogicV1 is SubscriptionStorageLayout {
         require(price    > 0, "LogicV1: plan does not exist");
         require(msg.value == price, "LogicV1: incorrect ETH amount");
 
-        uint256 start = block.timestamp;
+        Subscription storage current = subscriptions[msg.sender];
+        uint256 start = current.endTime > block.timestamp ? current.endTime : block.timestamp;
         uint256 end   = start + duration;
 
         subscriptions[msg.sender] = Subscription({
