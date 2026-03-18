@@ -63,15 +63,17 @@ contract SubscriptionLogicV2 is SubscriptionStorageLayout {
         require(price    > 0,             "LogicV2: plan does not exist");
         require(msg.value == price,       "LogicV2: incorrect ETH amount");
 
-        uint256 start = block.timestamp;
-        uint256 end   = start + duration;
+        require(!subscriptions[msg.sender].paused, "LogicV2: account is paused");
 
-        subscriptions[msg.sender] = Subscription({
-            startTime: start,
-            endTime:   end,
-            plan:      plan,
-            paused:    false
-        });
+                uint256 start = block.timestamp;
+                uint256 end   = start + duration;
+
+                subscriptions[msg.sender] = Subscription({
+                    startTime: start,
+                    endTime:   end,
+                    plan:      plan,
+                    paused:    false
+                });
 
         emit Subscribed(msg.sender, plan, end);
     }
