@@ -76,15 +76,11 @@ contract GasEfficientVotingGasTest {
 
     function testGas_vote_naive() public {
         uint256 proposalId = naive.createProposal(DESCRIPTION_HASH, 1 days);
-        VoterProxy voter = new VoterProxy();
-
-        voter.voteNaive(naive, proposalId, true);
+        naive.vote(proposalId, true);
     }
 
     function testGas_vote_optimized() public {
         uint256 proposalId = optimized.createProposal(DESCRIPTION_HASH, 1 days);
-        VoterProxy voter = new VoterProxy();
-
-        voter.voteOptimized(optimized, proposalId, true);
+        optimized.vote(proposalId, true);
     }
 }
