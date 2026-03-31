@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @title  SimpleLending — Misty Bank 🏦
-/// @author rainwaters11 — Day 22: LendingPool (DeFi Primitive)
+/// @author rainwaters11 — Day 23: LendingPool (DeFi Primitive)
 /// @notice A minimal ERC-20 lending pool that lets users deposit collateral,
 ///         borrow up to 75 % of their collateral value, and accrue 5 % APR
 ///         simple interest using block.timestamp.
